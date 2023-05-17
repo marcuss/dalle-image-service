@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Congratulations on deploying your Kubernetes app</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="preload" as="font">
+  <!-- Favicon -->
+  <link
+    href="/static/kubernetes-engine-icon.png"
+    rel="icon"
+    type="image/png"
+  />
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-display: fallback;
+      background: url('/static/cloud_bg.svg');
+      background-size: cover;
+      background-position: center;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 0px;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+
+    h3 {
+      font-size: 20px;
+      margin-bottom: 0px;
+    }
+
+    .next {
+      font-size: 15px;
+      margin-top: 8px;
+      margin-bottom: 8px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero {
+      margin-top: 172px;
+    }
+
+    .hero .logo {
+      width: 140px;
+      float: left;
+      margin-right: 32px;
+    }
+
+    .hero .message {
+      font-size: 15px;
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .details {
+      clear: both;
+      height: 400px;
+      line-height: 1.8;
+    }
+
+    .callout {
+      font-size: 14px;
+      color: #1967D2;
+      font-weight: 600;
+      padding: 16px 24px 16px 40px;
+      background: url('/static/lightbulb_icon.svg') #E8F0FE ;
+      background-position: 16px 16px;
+      background-repeat: no-repeat;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: 'Roboto Mono', Courier, monospace;
+      color: #A30038;
+      background-color: #F8F8F8;
+      border: 1px solid #DDD;
+      border-radius: 2px;
+      padding: 0 6px;
+      font-weight: 500;
+    }
+
+    .cta {
+      display: inline-block;
+    }
+
+    .cta-button {
+      background-color: #0E65F1;
+      border-color: #0E65F1;
+      color: white;
+      text-decoration: none;
+      padding: 8px 12px;
+      margin-top: 8px;
+      min-height: 36px;
+      border-radius: 2px;
+      font-weight: 600;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-button:hover {
+      background-color: #4285F4;
+      border-color: #4285F4;
+    }
+
+    #image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    #image-container img {
+      max-width: 512px;
+    }
+
+    @media (max-width: 600px) {
+      .hero .logo {
+        float: initial;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .container {
+        margin-top: 0;
+      }
+
+      .hero {
+        margin-top: 0;
+        margin-bottom: 24px;
+      }
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: black url('/static/dark_bg.svg');
+        color:white;
+      }
+      a {
+        color: #70A0FF;
+      }
+    }
+
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      animation: spin 2s linear infinite;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div style="text-align:center;">
+      <picture>
+        <source srcset="/static/KE-hello-world-dark.svg" media="(prefers-color-scheme: dark)">
+        <img src="/static/KE-hello-world.svg" alt="A group celebrating" width="427" height="231">
+      </picture>
+    </div>
+
+    <div class="message">
+      <h1>{{message}}</h1>
+      <h2>Congratulations, you successfully deployed a Kubernetes application with Cloud Code!</h2>
+    </div>
+  </div>
+
+  <h1 id="generated-image-header" style="display: none;">Generated Image: <span id="prompt-text"></span></h1>
+  <div id="image-container"></div>
+  <div id="loading-spinner" style="display: none;" class="spinner"></div>
+
+  <div class="details">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Generate image from text</h3>
+        <form id="generate-image-form">
+          <input type="text" id="prompt-input" name="prompt" placeholder="Enter your text" class="form-control" style="margin-bottom: 10px;">
+          <br>
+          <button type="button" id="generate-image-button" class="cta-button btn btn-primary">
+            Generate Image
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  document.getElementById("generate-image-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
+  });
+
+  function generateImage() {
+    var promptText = document.getElementById("prompt-input").value;
+    var encodedPrompt = encodeURIComponent(promptText);
+    var timestamp = new Date().getTime(); // Generate a timestamp
+    var apiUrl = "/v1/image?prompt=" + encodedPrompt + "&timestamp=" + timestamp;
+    var imageContainer = document.getElementById("image-container");
+    var loadingSpinner = document.getElementById("loading-spinner");
+    var generatedImageHeader = document.getElementById("generated-image-header");
+    var promptTextElement = document.getElementById("prompt-text");
+
+    loadingSpinner.style.display = "block"; // Show loading spinner
+    imageContainer.innerHTML = ""; // Clear previous image
+    generatedImageHeader.style.display = "none"; // Hide generated image header
+
+    // Perform API call to retrieve the image URL
+    fetch(apiUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var imageUrl = data.image_url;
+
+        // Create the <img> element and set the source attribute
+        var imageElement = document.createElement("img");
+        imageElement.src = imageUrl;
+        imageElement.alt = promptText;
+        imageElement.style.maxWidth = "512px";
+        imageElement.style.display = "block";
+        imageElement.style.margin = "0 auto";
+
+        // Append the <img> element to the image container
+        imageContainer.appendChild(imageElement);
+
+        // Update prompt text and show generated image header
+        promptTextElement.textContent = promptText;
+        generatedImageHeader.style.display = "block";
+        generatedImageHeader.style.textAlign = "center"; // Center the generated image header
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      })
+      .finally(function () {
+        loadingSpinner.style.display = "none"; // Hide loading spinner
+      });
+  }
+
+  document.getElementById("generate-image-button").addEventListener("click", generateImage);
+  document.getElementById("prompt-input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent form submission
+      generateImage();
+    }
+  });
+</script>
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
