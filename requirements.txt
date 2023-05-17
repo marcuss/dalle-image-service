@@ -8,13 +8,11 @@ brotlicffi==1.0.9.2
 ConfigParser==5.3.0
 contextlib2==21.6.0
 cryptography==40.0.2
-Cython==0.29.34
 dl==0.1.0
 docutils==0.20.1
 HTMLParser==0.0.2
 ipython==8.13.2
 ipywidgets==8.0.6
-jnius==1.1.0
 keyring==23.13.1
 lockfile==0.12.2
 mock==5.0.2
@@ -32,6 +30,4 @@ tornado==6.3.2
 trove_classifiers==2023.5.2
 truststore==0.7.0
 urllib3_secure_extra==0.1.0
-watchdog==3.0.0
-xmlrpclib==1.0.1
 zstandard==0.21.0
